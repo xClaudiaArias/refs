@@ -9,8 +9,15 @@ body {
     border: dashed 5px tomato;
 }
 
-.image {
-    position: absolute; /* enbales free mvment */
-    cursor: grab;
-    transition: none;
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.resize-handle {
+    /* border-radius: 50%; */
+    background: transparent;
+    cursor: nwse-resize;
 }
