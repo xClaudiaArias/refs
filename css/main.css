@@ -12,4 +12,5 @@ body {
 .image {
     position: absolute; /* enbales free mvment */
     cursor: grab;
+    transition: none;
 }

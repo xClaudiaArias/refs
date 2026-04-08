@@ -22,45 +22,37 @@ upload.addEventListener("change", (e) => {
     }
 })
 
+let activeElement = null;
+let offsetX = 0;
+let offsetY = 0;
+let zIndex = 1;
+
 function makeDraggable(element) {
-    let activeElement = null;
-    let offsetX = 0;
-    let offsetY = 0;
-
-    let isDragging = false;
-    let zIndex = 1;
-
-
     // mousedown event 
     element.addEventListener("mousedown", (e) => {
-        isDragging = true;
+        e.preventDefault(); // prevent default image drag / selection
+        activeElement = element;
 
-        // calc offset inside img 
         offsetX = e.clientX - element.offsetLeft;
         offsetY = e.clientY - element.offsetTop;
 
-        // e.client -> mouse position 
-        // offsetX is where we click inside img 
-
-        element.style.cursor = "grabbing";
-
-        // layering stack images so clicked images come to the front
         zIndex++;
         element.style.zIndex = zIndex;
+        element.style.cursor = "grabbing";
 
-    });
-
-    // mousemove event 
-    element.addEventListener("mousemove", (e) => {
-        if (!isDragging) return;
-
-        element.style.left = e.clientX - offsetX + "px";
-        element.style.top = e.clientY - offsetY + "px";
-    })
-
-    // mouseup event 
-    element.addEventListener("mouseup", (e) => {
-        isDragging = false;
-        element.style.cursor = "grab";
     });
 }
+
+document.addEventListener("mousemove", (e) => {
+    if (!activeElement) return;
+
+    activeElement.style.left = e.clientX - offsetX + "px";
+    activeElement.style.top = e.clientY - offsetY + "px";
+});
+
+document.addEventListener("mouseup", () => {
+    if (activeElement) {
+        activeElement.style.cursor = "grab";
+    }
+    activeElement = null;
+});
