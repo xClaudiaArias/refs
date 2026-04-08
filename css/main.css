@@ -20,4 +20,9 @@ body {
     /* border-radius: 50%; */
     background: transparent;
     cursor: nwse-resize;
+    opacity: 0;
+}
+
+.resize-handle:hover {
+    opacity: 1;
 }
